@@ -64,9 +64,6 @@ void generate_sudoku(int **grid, int n)
         {
             *(*(grid+x)+y) = r;
         }
-        else{
-            printf("X\n");
-        }
         n--;
     }
 }
@@ -149,4 +146,43 @@ int random(int min, int max)
 
     num = (rand() % (max - min +1 )) + min;
     return num;
+}
+
+int solve(int **grid, int x, int y)
+{
+    int val;
+
+    if(x == 9 && y == 8) // if we are in the last cell
+    {
+        return 1;
+    }
+    
+    if(x == 9) // go to next cell
+    {
+        y ++;
+        x = 0;
+    }
+
+    if( *(*(grid + x) + y) > 0)
+    {
+        return solve(grid, x + 1, y);
+    }
+    
+    val = 1;
+
+    while(val <= 9)
+    {
+        if(is_valid(x, y, val, grid))
+        {
+            *(*(grid + x) + y) = val;
+
+            if(solve(grid, x + 1, y))
+            {
+                return 1;
+            }
+        }
+        *(*(grid + x) + y) = 0;
+        val ++;
+    }
+    return 0;
 }

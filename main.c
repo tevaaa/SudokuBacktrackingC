@@ -16,7 +16,9 @@ int main(void)
         *(grid+i) = (int *)malloc(9 * sizeof(int *));
         i++;
     }
-    generate_sudoku(grid, 30);
-    
+    generate_sudoku(grid, 50);
+    print_grid(grid);
+    printf("Solving ...\n");
+    solve(grid,0,0);
     print_grid(grid);
 }

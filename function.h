@@ -9,3 +9,5 @@ int check_box(int x, int y, int val, int **grid);
 int is_valid(int x, int y, int val, int **grid);
 
 int random(int min, int max);
+
+int solve(int **grid, int x, int y);
