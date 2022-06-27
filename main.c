@@ -1,27 +1,22 @@
 #include "function.h"
+#include <stdio.h> 
+#include <stdlib.h>
+
 
 int main(void)
 {
-    int **grid; 
-    generate_sudoku(grid, 5);
+    int **grid;
+    int i;
 
-    int j_;
-    int i_;
-    int i = 9;
-    int j = 9;
+    grid = (int **)malloc(9 * sizeof(int *)); // malloc number of rows
+    i = 0;
 
-    i_ = 0;
-    while(i_ < i)
+    while(i < 9)        // malloc numbers of cells per row
     {
-        
-        j_ = 0;
-        printf("[");
-        while(j_ < j)
-        {
-            printf("%d,",*(*(grid+j_)+i_));
-            j_ ++;
-        }
-        i_++;
+        *(grid+i) = (int *)malloc(9 * sizeof(int *));
+        i++;
     }
-
+    generate_sudoku(grid, 30);
+    
+    print_grid(grid);
 }
