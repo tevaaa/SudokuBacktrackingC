@@ -1,7 +1,7 @@
 #include "function.h"
 #include <stdio.h> 
 #include <stdlib.h>
-
+#include <time.h>
 
 int main(void)
 {
@@ -16,9 +16,23 @@ int main(void)
         *(grid+i) = (int *)malloc(9 * sizeof(int *));
         i++;
     }
-    generate_sudoku(grid, 50);
+    generate_sudoku(grid, 30);
     print_grid(grid);
+    clock_t start, end;
+    double cpu_time_used;
+     
+     start = clock();
+     
+     
     printf("Solving ...\n");
-    solve(grid,0,0);
-    print_grid(grid);
+    if(solve(grid,0,0))
+    {
+        end = clock();
+        cpu_time_used = ((double) (end - start));
+        printf("Solution founded in %d ms", cpu_time_used);
+        print_grid(grid); 
+    }
+       
+    else
+        printf("Unsolvable :(");
 }

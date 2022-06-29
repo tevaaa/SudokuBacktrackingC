@@ -108,16 +108,18 @@ int check_col(int x, int val, int **grid)
 
 int check_box(int x, int y, int val, int **grid)
 {
-    int i, j, answ;
-    i = x/3; // box index 0, 1 or 2 on x axis
-    j = y/3; //                        y
+    int i, j, i_, j_ ,answ;
+    i = y/3 * 3; // box index 0, 1 or 2 on x axis
+    j = x/3 * 3; //                        y
     answ = 1;
-
-    while(i < x/3+3)
+    i_ = i+3;
+    j_ = j+3;
+    while(i < i_)
     {
-        while(j < y/3+3)
+        j = x/3 *3;
+        while(j < j_)
         {
-            if(( *(*grid+i)+j) == val)
+            if(*(*(grid+j)+i) == val)
             {
                 answ = 0;
             }
@@ -151,7 +153,6 @@ int random(int min, int max)
 int solve(int **grid, int x, int y)
 {
     int val;
-
     if(x == 9 && y == 8) // if we are in the last cell
     {
         return 1;
@@ -168,14 +169,12 @@ int solve(int **grid, int x, int y)
         return solve(grid, x + 1, y);
     }
     
-    val = 1;
-
+    val = 1; 
     while(val <= 9)
     {
         if(is_valid(x, y, val, grid))
         {
             *(*(grid + x) + y) = val;
-
             if(solve(grid, x + 1, y))
             {
                 return 1;
